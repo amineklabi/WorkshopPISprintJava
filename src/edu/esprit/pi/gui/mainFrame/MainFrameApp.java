@@ -74,6 +74,7 @@ public class MainFrameApp extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         facebookAppjMenuItem2 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
+        statJFreeChartMenuItem2 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenu5 = new javax.swing.JMenu();
         helpMenu = new javax.swing.JMenu();
@@ -82,6 +83,8 @@ public class MainFrameApp extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sprint 1 Java workchops");
+
+        menuBar.setForeground(new java.awt.Color(102, 153, 255));
 
         fileMenu.setMnemonic('f');
         fileMenu.setText("File");
@@ -176,6 +179,10 @@ public class MainFrameApp extends javax.swing.JFrame {
         menuBar.add(jMenu2);
 
         jMenu3.setText("Statistiques");
+
+        statJFreeChartMenuItem2.setText("Stat. JfreeChart");
+        jMenu3.add(statJFreeChartMenuItem2);
+
         menuBar.add(jMenu3);
 
         jMenu4.setText("Rapport");
@@ -301,6 +308,7 @@ public class MainFrameApp extends javax.swing.JFrame {
     private javax.swing.JMenuItem pasteMenuItem;
     private javax.swing.JMenuItem saveAsMenuItem;
     private javax.swing.JMenuItem saveMenuItem;
+    private javax.swing.JMenuItem statJFreeChartMenuItem2;
     private javax.swing.JMenu stockDepotArticle;
     // End of variables declaration//GEN-END:variables
 
