@@ -235,7 +235,8 @@ public class StatistiquesInternalFrame extends javax.swing.JInternalFrame {
         PieChart pieChart = new PieChart();
         JFreeChart jFreeChart = pieChart.construireChart3D();
         ChartPanel chartPanel = new ChartPanel(jFreeChart);
-        graphiquejPanel = chartPanel;
+        graphiquejPanel.add(chartPanel);
+        graphiquejPanel.setVisible(true);
         graphiquejPanel.show();
     }//GEN-LAST:event_genereGraphiqueButtonActionPerformed
 
