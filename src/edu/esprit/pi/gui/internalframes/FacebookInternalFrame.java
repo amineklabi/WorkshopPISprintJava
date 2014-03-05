@@ -67,7 +67,7 @@ public class FacebookInternalFrame extends javax.swing.JInternalFrame {
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         getPermissionjButton = new javax.swing.JButton();
-        browserPanel = new javax.swing.JPanel();
+        webBrowserPanel = new javax.swing.JPanel();
 
         setTitle("Facebook Sample App");
 
@@ -223,14 +223,14 @@ public class FacebookInternalFrame extends javax.swing.JInternalFrame {
                 .addGap(20, 20, 20))
         );
 
-        javax.swing.GroupLayout browserPanelLayout = new javax.swing.GroupLayout(browserPanel);
-        browserPanel.setLayout(browserPanelLayout);
-        browserPanelLayout.setHorizontalGroup(
-            browserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout webBrowserPanelLayout = new javax.swing.GroupLayout(webBrowserPanel);
+        webBrowserPanel.setLayout(webBrowserPanelLayout);
+        webBrowserPanelLayout.setHorizontalGroup(
+            webBrowserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 592, Short.MAX_VALUE)
         );
-        browserPanelLayout.setVerticalGroup(
-            browserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        webBrowserPanelLayout.setVerticalGroup(
+            webBrowserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
@@ -245,7 +245,7 @@ public class FacebookInternalFrame extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(browserPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(webBrowserPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         globaljPanelLayout.setVerticalGroup(
             globaljPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -257,7 +257,7 @@ public class FacebookInternalFrame extends javax.swing.JInternalFrame {
                         .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jSeparator1))
                 .addContainerGap())
-            .addComponent(browserPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(webBrowserPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -279,12 +279,12 @@ public class FacebookInternalFrame extends javax.swing.JInternalFrame {
     private void getPermissionjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_getPermissionjButtonActionPerformed
          System.out.println("Running opening new Facebook web Browser window ...");
         System.out.println(facebook.getFb_url());
-        browserPanel = new JPanel();
         final JWebBrowser webBrowser = new JWebBrowser();
         webBrowser.setMenuBarVisible(false);
         webBrowser.setButtonBarVisible(false);
         webBrowser.setLocationBarVisible(false);
         webBrowser.navigate(facebook.getFb_url());
+        webBrowserPanel.setLayout(new java.awt.BorderLayout());
         webBrowser.addWebBrowserListener(new WebBrowserAdapter() {
             @Override
             public void locationChanging(WebBrowserNavigationEvent e) {
@@ -294,23 +294,22 @@ public class FacebookInternalFrame extends javax.swing.JInternalFrame {
                     Timer timer = new Timer(2000, new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent arg0) {
-                            browserPanel.setVisible(true);
+                            webBrowserPanel.setVisible(true);
                         }
                     });
                     timer.start();
                 }
             }
         });
-        browserPanel.add(webBrowser, BorderLayout.CENTER);
-        browserPanel.setVisible(true);
-        //globaljPanel.add(browserPanel);
+        webBrowserPanel.add(webBrowser, BorderLayout.CENTER);
+        webBrowser.validate();
+//webBrowserPanel.setVisible(true);
     }//GEN-LAST:event_getPermissionjButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea accessTokenjTextArea1;
     private javax.swing.JTextField apiKeyTextField1;
-    private javax.swing.JPanel browserPanel;
     private javax.swing.JLabel expiresTokenjLabel11;
     private javax.swing.JButton getAccessTokenjButton;
     private javax.swing.JButton getPermissionjButton;
@@ -332,5 +331,6 @@ public class FacebookInternalFrame extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField secretKeyjTextField1;
+    private javax.swing.JPanel webBrowserPanel;
     // End of variables declaration//GEN-END:variables
 }

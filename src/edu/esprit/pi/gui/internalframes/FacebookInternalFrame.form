@@ -48,7 +48,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jSeparator1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="browserPanel" max="32767" attributes="0"/>
+                  <Component id="webBrowserPanel" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -65,7 +65,7 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
-              <Component id="browserPanel" max="32767" attributes="0"/>
+              <Component id="webBrowserPanel" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
@@ -330,7 +330,7 @@
             </Component>
           </SubComponents>
         </Container>
-        <Container class="javax.swing.JPanel" name="browserPanel">
+        <Container class="javax.swing.JPanel" name="webBrowserPanel">
 
           <Layout>
             <DimensionLayout dim="0">
