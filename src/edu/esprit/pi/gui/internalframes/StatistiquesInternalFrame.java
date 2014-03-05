@@ -7,6 +7,8 @@
 package edu.esprit.pi.gui.internalframes;
 
 import edu.esprit.pi.workshop.statistiques.PieChart;
+import java.awt.BorderLayout;
+import javax.swing.JPanel;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 
@@ -184,7 +186,7 @@ public class StatistiquesInternalFrame extends javax.swing.JInternalFrame {
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                 .addComponent(genereGraphiqueButton)
                 .addGap(23, 23, 23))
         );
@@ -199,7 +201,7 @@ public class StatistiquesInternalFrame extends javax.swing.JInternalFrame {
         );
         graphiquejPanelLayout.setVerticalGroup(
             graphiquejPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 447, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -208,8 +210,8 @@ public class StatistiquesInternalFrame extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(graphiquejPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(graphiquejPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -233,11 +235,12 @@ public class StatistiquesInternalFrame extends javax.swing.JInternalFrame {
 
     private void genereGraphiqueButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_genereGraphiqueButtonActionPerformed
         PieChart pieChart = new PieChart();
-        JFreeChart jFreeChart = pieChart.construireChart3D();
-        ChartPanel chartPanel = new ChartPanel(jFreeChart);
-        graphiquejPanel.add(chartPanel);
-        graphiquejPanel.setVisible(true);
-        graphiquejPanel.show();
+        JFreeChart graphe = pieChart.construireChart3D();
+        ChartPanel chartPanel = new ChartPanel(graphe);
+        graphiquejPanel = new JPanel();
+        graphiquejPanel.setLayout(new java.awt.BorderLayout());
+        graphiquejPanel.add(chartPanel,BorderLayout.CENTER);
+        graphiquejPanel.validate();
     }//GEN-LAST:event_genereGraphiqueButtonActionPerformed
 
 
