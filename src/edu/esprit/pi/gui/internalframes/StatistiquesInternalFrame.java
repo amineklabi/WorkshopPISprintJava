@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package edu.esprit.pi.gui.internalframes;
 
 import edu.esprit.pi.workshop.statistiques.PieChart;
@@ -233,11 +232,12 @@ public class StatistiquesInternalFrame extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+
     private void genereGraphiqueButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_genereGraphiqueButtonActionPerformed
         PieChart pieChart = new PieChart();
-        JFreeChart graphe = pieChart.construireChart3D();
+        JFreeChart graphe = pieChart.construireChart2D();
         ChartPanel chartPanel = new ChartPanel(graphe);
-        graphiquejPanel = new JPanel();
+        graphiquejPanel.add(chartPanel, BorderLayout.CENTER);
         graphiquejPanel.setLayout(new java.awt.BorderLayout());
         graphiquejPanel.add(chartPanel,BorderLayout.CENTER);
         graphiquejPanel.validate();

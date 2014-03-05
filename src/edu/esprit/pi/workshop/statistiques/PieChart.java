@@ -36,7 +36,7 @@ public class PieChart {
     public JFreeChart construireChart2D() {
         List<Stock> list = new StockDAO().findAll();
         dataset = new DefaultPieDataset();
-        //Remplissage Dynamique du dataset
+        System.out.println("Remplissage Dynamique du dataset ...");
         for (Stock stock : list) {
             dataset.setValue(stock.getLibelle(),stock.getQtiteStock() );
         }
