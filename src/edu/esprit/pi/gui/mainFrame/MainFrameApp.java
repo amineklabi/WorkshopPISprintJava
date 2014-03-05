@@ -23,6 +23,7 @@ import chrriis.dj.nativeswing.swtimpl.components.WebBrowserNavigationEvent;
 import edu.esprit.pi.gui.internalframes.ClientArticleInternaFrame;
 import edu.esprit.pi.gui.internalframes.FacebookInternalFrame;
 import edu.esprit.pi.gui.internalframes.MailInternalFrame;
+import edu.esprit.pi.gui.internalframes.StatistiquesInternalFrame;
 import edu.esprit.pi.gui.internalframes.StockDepotInternFrame;
 import edu.esprit.pi.workshop.facebook.Facebook;
 import java.awt.BorderLayout;
@@ -181,6 +182,11 @@ public class MainFrameApp extends javax.swing.JFrame {
         jMenu3.setText("Statistiques");
 
         statJFreeChartMenuItem2.setText("Stat. JfreeChart");
+        statJFreeChartMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                statJFreeChartMenuItem2ActionPerformed(evt);
+            }
+        });
         jMenu3.add(statJFreeChartMenuItem2);
 
         menuBar.add(jMenu3);
@@ -247,6 +253,12 @@ public class MainFrameApp extends javax.swing.JFrame {
         masterjdesktopPane.add(fif);
         fif.show();
     }//GEN-LAST:event_facebookAppjMenuItem2ActionPerformed
+
+    private void statJFreeChartMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statJFreeChartMenuItem2ActionPerformed
+        StatistiquesInternalFrame sif = new StatistiquesInternalFrame();
+        masterjdesktopPane.add(sif);
+        sif.show();
+    }//GEN-LAST:event_statJFreeChartMenuItem2ActionPerformed
 
     /**
      * @param args the command line arguments

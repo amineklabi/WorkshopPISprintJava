@@ -6,6 +6,10 @@
 
 package edu.esprit.pi.gui.internalframes;
 
+import edu.esprit.pi.workshop.statistiques.PieChart;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+
 /**
  *
  * @author Amine
@@ -28,13 +32,26 @@ public class StatistiquesInternalFrame extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        objetsAffichebuttonGroup1 = new javax.swing.ButtonGroup();
+        BarbuttonGroup = new javax.swing.ButtonGroup();
+        directionbuttonGroup = new javax.swing.ButtonGroup();
+        camembergbuttonGroup = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        stockjRadioButton1 = new javax.swing.JRadioButton();
+        quantitejRadioButton2 = new javax.swing.JRadioButton();
         jLabel2 = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
+        jPanel4 = new javax.swing.JPanel();
+        bar2DjRadioButton1 = new javax.swing.JRadioButton();
+        bar3djRadioButton2 = new javax.swing.JRadioButton();
+        verticalRadiobutton = new javax.swing.JRadioButton();
+        horizontalRadioButton = new javax.swing.JRadioButton();
+        jPanel5 = new javax.swing.JPanel();
+        camenberg2DRadioButton = new javax.swing.JRadioButton();
+        camemberg3DRadioButton = new javax.swing.JRadioButton();
+        genereGraphiqueButton = new javax.swing.JButton();
+        graphiquejPanel = new javax.swing.JPanel();
 
         setTitle("Statistiques avec JfreeChart");
 
@@ -42,31 +59,115 @@ public class StatistiquesInternalFrame extends javax.swing.JInternalFrame {
 
         jLabel1.setText("- Afficher la liste des articles par :");
 
-        jRadioButton1.setText("Depot");
+        objetsAffichebuttonGroup1.add(stockjRadioButton1);
+        stockjRadioButton1.setText("Stock");
 
-        jRadioButton2.setText("Quatite");
+        objetsAffichebuttonGroup1.add(quantitejRadioButton2);
+        quantitejRadioButton2.setText("Quantite");
 
-        jLabel2.setText("-  ");
+        jLabel2.setText("-  Choisir le type d'affichage : ");
+
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Bar Chart"));
+
+        BarbuttonGroup.add(bar2DjRadioButton1);
+        bar2DjRadioButton1.setText("Bar 2D");
+
+        BarbuttonGroup.add(bar3djRadioButton2);
+        bar3djRadioButton2.setText("Bar 3D");
+
+        directionbuttonGroup.add(verticalRadiobutton);
+        verticalRadiobutton.setText("Vertical");
+
+        directionbuttonGroup.add(horizontalRadioButton);
+        horizontalRadioButton.setText("Horizontal");
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(horizontalRadioButton)
+                    .addComponent(verticalRadiobutton)
+                    .addComponent(bar3djRadioButton2)
+                    .addComponent(bar2DjRadioButton1))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(bar2DjRadioButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(bar3djRadioButton2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(verticalRadiobutton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(horizontalRadioButton))
+        );
+
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Pie Chart"));
+
+        camembergbuttonGroup.add(camenberg2DRadioButton);
+        camenberg2DRadioButton.setText("Camemberg 2D");
+
+        camembergbuttonGroup.add(camemberg3DRadioButton);
+        camemberg3DRadioButton.setText("Camemberg 3D");
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(camenberg2DRadioButton)
+                    .addComponent(camemberg3DRadioButton))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(camenberg2DRadioButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(camemberg3DRadioButton)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        genereGraphiqueButton.setText("Générer Graphique");
+        genereGraphiqueButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                genereGraphiqueButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jRadioButton1)
-                        .addGap(18, 18, 18)
-                        .addComponent(jRadioButton2)
-                        .addGap(24, 24, 24))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addContainerGap(45, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel2)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(21, 21, 21)
+                                .addComponent(stockjRadioButton1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(quantitejRadioButton2))
+                            .addComponent(jLabel1))
+                        .addContainerGap(25, Short.MAX_VALUE))))
+            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(35, 35, 35)
+                .addComponent(genereGraphiqueButton)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -74,24 +175,30 @@ public class StatistiquesInternalFrame extends javax.swing.JInternalFrame {
                 .addGap(23, 23, 23)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton2))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(quantitejRadioButton2)
+                    .addComponent(stockjRadioButton1))
                 .addGap(20, 20, 20)
                 .addComponent(jLabel2)
-                .addContainerGap(319, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addComponent(genereGraphiqueButton)
+                .addGap(23, 23, 23))
         );
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        graphiquejPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 754, Short.MAX_VALUE)
+        javax.swing.GroupLayout graphiquejPanelLayout = new javax.swing.GroupLayout(graphiquejPanel);
+        graphiquejPanel.setLayout(graphiquejPanelLayout);
+        graphiquejPanelLayout.setHorizontalGroup(
+            graphiquejPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 782, Short.MAX_VALUE)
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        graphiquejPanelLayout.setVerticalGroup(
+            graphiquejPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
@@ -101,13 +208,13 @@ public class StatistiquesInternalFrame extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(graphiquejPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(graphiquejPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -124,14 +231,35 @@ public class StatistiquesInternalFrame extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void genereGraphiqueButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_genereGraphiqueButtonActionPerformed
+        PieChart pieChart = new PieChart();
+        JFreeChart jFreeChart = pieChart.construireChart3D();
+        ChartPanel chartPanel = new ChartPanel(jFreeChart);
+        graphiquejPanel = chartPanel;
+        graphiquejPanel.show();
+    }//GEN-LAST:event_genereGraphiqueButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup BarbuttonGroup;
+    private javax.swing.JRadioButton bar2DjRadioButton1;
+    private javax.swing.JRadioButton bar3djRadioButton2;
+    private javax.swing.JRadioButton camemberg3DRadioButton;
+    private javax.swing.ButtonGroup camembergbuttonGroup;
+    private javax.swing.JRadioButton camenberg2DRadioButton;
+    private javax.swing.ButtonGroup directionbuttonGroup;
+    private javax.swing.JButton genereGraphiqueButton;
+    private javax.swing.JPanel graphiquejPanel;
+    private javax.swing.JRadioButton horizontalRadioButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.ButtonGroup objetsAffichebuttonGroup1;
+    private javax.swing.JRadioButton quantitejRadioButton2;
+    private javax.swing.JRadioButton stockjRadioButton1;
+    private javax.swing.JRadioButton verticalRadiobutton;
     // End of variables declaration//GEN-END:variables
 }
