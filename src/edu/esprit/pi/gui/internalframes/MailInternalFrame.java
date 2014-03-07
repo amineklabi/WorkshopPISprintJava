@@ -55,6 +55,8 @@ public class MailInternalFrame extends javax.swing.JInternalFrame {
         quitterjButton = new javax.swing.JButton();
         attachementjButton = new javax.swing.JButton();
 
+        setClosable(true);
+
         jLabel1.setText("Mail Sender : ");
 
         jLabel2.setText("Password :");

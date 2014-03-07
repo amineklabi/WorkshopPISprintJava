@@ -17,7 +17,7 @@ import javax.swing.table.AbstractTableModel;
 public class StockTableModel extends AbstractTableModel {
 
     List<Stock> listStock;
-    String[] entete = {"Libelle Vet", "Type", "Quantite en stock", "Prix unitaire", "Depot"};
+    String[] entete = {"ID","Libelle Vet", "Type", "Quantite en stock", "Prix unitaire", "Depot"};
 
     public StockTableModel() {
         listStock = new StockDAO().findAll();
@@ -37,14 +37,16 @@ public class StockTableModel extends AbstractTableModel {
     public Object getValueAt(int rowIndex, int columnIndex) {
         switch (columnIndex) {
             case 0:
-                return listStock.get(rowIndex).getLibelle();
+                 return listStock.get(rowIndex).getId();
             case 1:
-                return listStock.get(rowIndex).getType();
+                return listStock.get(rowIndex).getLibelle();
             case 2:
-                return listStock.get(rowIndex).getQtiteStock();
+                return listStock.get(rowIndex).getType();
             case 3:
-                return listStock.get(rowIndex).getPrix();
+                return listStock.get(rowIndex).getQtiteStock();
             case 4:
+                return listStock.get(rowIndex).getPrix();
+            case 5:
                 return listStock.get(rowIndex).getDepot().getAdresse();
             default:
                  throw new IllegalArgumentException();

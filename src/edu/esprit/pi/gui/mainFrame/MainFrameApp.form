@@ -202,7 +202,10 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="masterjdesktopPane" alignment="0" min="-2" pref="1031" max="-2" attributes="0"/>
+          <Group type="102" attributes="0">
+              <Component id="masterjdesktopPane" alignment="0" min="-2" pref="1031" max="-2" attributes="0"/>
+              <EmptySpace pref="29" max="32767" attributes="0"/>
+          </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">

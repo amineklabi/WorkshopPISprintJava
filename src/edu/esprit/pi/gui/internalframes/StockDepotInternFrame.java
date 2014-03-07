@@ -10,6 +10,7 @@ import edu.esprit.pi.dao.StockDAO;
 import edu.esprit.pi.entites.Depot;
 import edu.esprit.pi.entites.Stock;
 import edu.esprit.pi.gui.tablemodels.StockTableModel;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -72,6 +73,7 @@ public class StockDepotInternFrame extends javax.swing.JInternalFrame {
         jPanel2 = new javax.swing.JPanel();
         quitjButton1 = new javax.swing.JButton();
         refrechModeljButton2 = new javax.swing.JButton();
+        supprimerjButton = new javax.swing.JButton();
 
         setTitle("Gestion du Stock");
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
@@ -301,12 +303,21 @@ public class StockDepotInternFrame extends javax.swing.JInternalFrame {
             }
         });
 
+        supprimerjButton.setText("Supprimer");
+        supprimerjButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                supprimerjButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(supprimerjButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(refrechModeljButton2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(quitjButton1)
@@ -318,7 +329,8 @@ public class StockDepotInternFrame extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(quitjButton1)
-                    .addComponent(refrechModeljButton2))
+                    .addComponent(refrechModeljButton2)
+                    .addComponent(supprimerjButton))
                 .addContainerGap())
         );
 
@@ -379,7 +391,7 @@ public class StockDepotInternFrame extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_ajouterDepotButtonActionPerformed
 
     private void refreshjButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshjButton2ActionPerformed
-        adresseDepotjComboBox1.removeAll();
+        adresseDepotjComboBox1.removeAllItems();
         remplirAdresseDepotComboBox();
     }//GEN-LAST:event_refreshjButton2ActionPerformed
 
@@ -428,6 +440,21 @@ public class StockDepotInternFrame extends javax.swing.JInternalFrame {
         this.dispose();
     }//GEN-LAST:event_quitjButton1ActionPerformed
 
+    private void supprimerjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supprimerjButtonActionPerformed
+       int[] selected = stockModeljTable1.getSelectedRows();
+        System.out.println("selected rows "+selected.length);
+       List<Stock> toRemove = new ArrayList<Stock>(selected.length);
+       for(int i = 0; i < selected.length; i++){
+           Stock s = listStock.get(stockModeljTable1.convertRowIndexToModel(selected[i]));
+           System.out.println(s);
+           toRemove.add(s);
+       }
+        System.out.println("La taille de la liste de stock à Supprimer .."+toRemove.size());
+        for(Stock s : toRemove){
+            stockDAO.delete(s);
+        }
+        listStock.removeAll(toRemove);
+    }//GEN-LAST:event_supprimerjButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField adresseDepotField;
@@ -460,5 +487,6 @@ public class StockDepotInternFrame extends javax.swing.JInternalFrame {
     private javax.swing.JButton refrechModeljButton2;
     private javax.swing.JButton refreshjButton2;
     private javax.swing.JTable stockModeljTable1;
+    private javax.swing.JButton supprimerjButton;
     // End of variables declaration//GEN-END:variables
 }

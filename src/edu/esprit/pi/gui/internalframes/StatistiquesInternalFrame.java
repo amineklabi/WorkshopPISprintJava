@@ -5,17 +5,24 @@
  */
 package edu.esprit.pi.gui.internalframes;
 
+import edu.esprit.pi.workshop.statistiques.BarChart;
 import edu.esprit.pi.workshop.statistiques.PieChart;
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.CategoryAxis;
+import org.jfree.chart.axis.CategoryLabelPositions;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.renderer.category.CategoryItemRenderer;
 
 /**
  *
  * @author Amine
  */
 public class StatistiquesInternalFrame extends javax.swing.JInternalFrame {
+
+    JFreeChart graphe;
 
     /**
      * Creates new form StatistiquesInternalFrame
@@ -46,14 +53,14 @@ public class StatistiquesInternalFrame extends javax.swing.JInternalFrame {
         jPanel4 = new javax.swing.JPanel();
         bar2DjRadioButton1 = new javax.swing.JRadioButton();
         bar3djRadioButton2 = new javax.swing.JRadioButton();
-        verticalRadiobutton = new javax.swing.JRadioButton();
-        horizontalRadioButton = new javax.swing.JRadioButton();
         jPanel5 = new javax.swing.JPanel();
         camenberg2DRadioButton = new javax.swing.JRadioButton();
         camemberg3DRadioButton = new javax.swing.JRadioButton();
-        genereGraphiqueButton = new javax.swing.JButton();
+        genereGrapePieChartButton = new javax.swing.JButton();
+        genererGrapheBarChartjButton = new javax.swing.JButton();
         graphiquejPanel = new javax.swing.JPanel();
 
+        setClosable(true);
         setTitle("Statistiques avec JfreeChart");
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Command Options"));
@@ -76,12 +83,6 @@ public class StatistiquesInternalFrame extends javax.swing.JInternalFrame {
         BarbuttonGroup.add(bar3djRadioButton2);
         bar3djRadioButton2.setText("Bar 3D");
 
-        directionbuttonGroup.add(verticalRadiobutton);
-        verticalRadiobutton.setText("Vertical");
-
-        directionbuttonGroup.add(horizontalRadioButton);
-        horizontalRadioButton.setText("Horizontal");
-
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -89,23 +90,17 @@ public class StatistiquesInternalFrame extends javax.swing.JInternalFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(horizontalRadioButton)
-                    .addComponent(verticalRadiobutton)
                     .addComponent(bar3djRadioButton2)
                     .addComponent(bar2DjRadioButton1))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(103, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(bar2DjRadioButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(bar3djRadioButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(verticalRadiobutton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(horizontalRadioButton))
+                .addComponent(bar3djRadioButton2))
         );
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Pie Chart"));
@@ -137,10 +132,17 @@ public class StatistiquesInternalFrame extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        genereGraphiqueButton.setText("Générer Graphique");
-        genereGraphiqueButton.addActionListener(new java.awt.event.ActionListener() {
+        genereGrapePieChartButton.setText("Générer Graphe pie chart");
+        genereGrapePieChartButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                genereGraphiqueButtonActionPerformed(evt);
+                genereGrapePieChartButtonActionPerformed(evt);
+            }
+        });
+
+        genererGrapheBarChartjButton.setText("Générer Graphe bar chart");
+        genererGrapheBarChartjButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                genererGrapheBarChartjButtonActionPerformed(evt);
             }
         });
 
@@ -149,6 +151,7 @@ public class StatistiquesInternalFrame extends javax.swing.JInternalFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -162,12 +165,12 @@ public class StatistiquesInternalFrame extends javax.swing.JInternalFrame {
                                 .addComponent(stockjRadioButton1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(quantitejRadioButton2))
-                            .addComponent(jLabel1))
-                        .addContainerGap(25, Short.MAX_VALUE))))
-            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel1)
+                            .addComponent(genererGrapheBarChartjButton))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addComponent(genereGraphiqueButton)
+                .addGap(20, 20, 20)
+                .addComponent(genereGrapePieChartButton)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -183,11 +186,13 @@ public class StatistiquesInternalFrame extends javax.swing.JInternalFrame {
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(genererGrapheBarChartjButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
-                .addComponent(genereGraphiqueButton)
-                .addGap(23, 23, 23))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(genereGrapePieChartButton)
+                .addContainerGap(67, Short.MAX_VALUE))
         );
 
         graphiquejPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -233,14 +238,31 @@ public class StatistiquesInternalFrame extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
 
-    private void genereGraphiqueButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_genereGraphiqueButtonActionPerformed
+    private void genereGrapePieChartButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_genereGrapePieChartButtonActionPerformed
         PieChart pieChart = new PieChart();
-        JFreeChart graphe = pieChart.construireChart2D();
+        if (camenberg2DRadioButton.isSelected()) {
+            graphe = pieChart.construireChart2D();
+        } else if (camemberg3DRadioButton.isSelected()) {
+            graphe = pieChart.construireChart3D();
+        }
         ChartPanel chartPanel = new ChartPanel(graphe);
         graphiquejPanel.setLayout(new java.awt.BorderLayout());
-        graphiquejPanel.add(chartPanel,BorderLayout.CENTER);
+        graphiquejPanel.add(chartPanel, BorderLayout.CENTER);
         graphiquejPanel.validate();
-    }//GEN-LAST:event_genereGraphiqueButtonActionPerformed
+    }//GEN-LAST:event_genereGrapePieChartButtonActionPerformed
+
+    private void genererGrapheBarChartjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_genererGrapheBarChartjButtonActionPerformed
+        BarChart barChart = new BarChart();
+        if (bar2DjRadioButton1.isSelected()) {
+            graphe = barChart.construireChart2D();
+        } else if (bar3djRadioButton2.isSelected()) {
+            graphe = barChart.construireChart3D();
+        }
+        ChartPanel chartPanel = new ChartPanel(graphe);
+        graphiquejPanel.setLayout(new java.awt.BorderLayout());
+        graphiquejPanel.add(chartPanel, BorderLayout.CENTER);
+        graphiquejPanel.validate();
+    }//GEN-LAST:event_genererGrapheBarChartjButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -251,9 +273,9 @@ public class StatistiquesInternalFrame extends javax.swing.JInternalFrame {
     private javax.swing.ButtonGroup camembergbuttonGroup;
     private javax.swing.JRadioButton camenberg2DRadioButton;
     private javax.swing.ButtonGroup directionbuttonGroup;
-    private javax.swing.JButton genereGraphiqueButton;
+    private javax.swing.JButton genereGrapePieChartButton;
+    private javax.swing.JButton genererGrapheBarChartjButton;
     private javax.swing.JPanel graphiquejPanel;
-    private javax.swing.JRadioButton horizontalRadioButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
@@ -263,6 +285,5 @@ public class StatistiquesInternalFrame extends javax.swing.JInternalFrame {
     private javax.swing.ButtonGroup objetsAffichebuttonGroup1;
     private javax.swing.JRadioButton quantitejRadioButton2;
     private javax.swing.JRadioButton stockjRadioButton1;
-    private javax.swing.JRadioButton verticalRadiobutton;
     // End of variables declaration//GEN-END:variables
 }

@@ -9,6 +9,7 @@
  */
 package edu.esprit.pi.gui.internalframes;
 
+import chrriis.dj.nativeswing.swtimpl.NativeInterface;
 import chrriis.dj.nativeswing.swtimpl.components.JWebBrowser;
 import chrriis.dj.nativeswing.swtimpl.components.WebBrowserAdapter;
 import chrriis.dj.nativeswing.swtimpl.components.WebBrowserNavigationEvent;
@@ -16,9 +17,13 @@ import edu.esprit.pi.workshop.facebook.Facebook;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.io.StringReader;
 import javax.swing.JInternalFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
+import javax.swing.text.html.HTMLEditorKit;
+import javax.swing.text.html.parser.ParserDelegator;
 
 /**
  *
@@ -50,7 +55,6 @@ public class FacebookInternalFrame extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jSeparator1 = new javax.swing.JSeparator();
         jPanel3 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -67,8 +71,11 @@ public class FacebookInternalFrame extends javax.swing.JInternalFrame {
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         getPermissionjButton = new javax.swing.JButton();
+        jLabel13 = new javax.swing.JLabel();
+        loginToFBjButton = new javax.swing.JButton();
         webBrowserPanel = new javax.swing.JPanel();
 
+        setClosable(true);
         setTitle("Facebook Sample App");
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("1 st Step"));
@@ -109,19 +116,21 @@ public class FacebookInternalFrame extends javax.swing.JInternalFrame {
                 .addGap(12, 12, 12))
         );
 
-        jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
-
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("2 nd Step"));
 
         jLabel5.setText("1 - Sur le tableau de bord de l'application crée, récupérer les deux valeurs suivantes :");
 
         jLabel6.setText("Identifiant de l'application : ");
 
+        apiKeyTextField1.setText("1452298744999266");
+
         jLabel7.setText("Clé secrète :");
+
+        secretKeyjTextField1.setText("ce9488263f578135c16fe2d78d118640");
 
         jLabel8.setText("3 - récupérer le jeton d'authentification avec votre application.");
 
-        getAccessTokenjButton.setText("get access token");
+        getAccessTokenjButton.setText("get token");
 
         jLabel9.setText("Access Token :");
 
@@ -145,6 +154,15 @@ public class FacebookInternalFrame extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel13.setText("0 - login to Facebook");
+
+        loginToFBjButton.setText("login to Facebook");
+        loginToFBjButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loginToFBjButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -152,82 +170,98 @@ public class FacebookInternalFrame extends javax.swing.JInternalFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel11)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabel10)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(expiresTokenjLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(29, 29, 29))
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel5)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel6)
-                                .addComponent(jLabel7))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(secretKeyjTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE)
-                                .addComponent(apiKeyTextField1))
-                            .addContainerGap()))))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel11)
+                            .addComponent(jLabel5)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addGap(76, 76, 76)
+                                .addComponent(secretKeyjTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel9)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jLabel9))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel8)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(getAccessTokenjButton))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel12)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(getPermissionjButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                    .addComponent(jScrollPane1))
+                        .addComponent(jLabel10))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(getAccessTokenjButton))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel12)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(getPermissionjButton))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(apiKeyTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel13)
+                        .addGap(50, 50, 50)
+                        .addComponent(loginToFBjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(loginToFBjButton))
+                .addGap(11, 11, 11)
                 .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(apiKeyTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7)
-                    .addComponent(secretKeyjTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel12)
-                    .addComponent(getPermissionjButton))
-                .addGap(11, 11, 11)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(getAccessTokenjButton))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel9)
-                .addGap(4, 4, 4)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(194, 194, 194)
+                        .addComponent(expiresTokenjLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 18, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(secretKeyjTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel12)
+                            .addComponent(getPermissionjButton))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel8)
+                            .addComponent(getAccessTokenjButton))
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(10, 10, 10)
+                .addComponent(jLabel10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(expiresTokenjLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 21, Short.MAX_VALUE)
-                    .addComponent(jLabel10))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel11)
-                .addGap(20, 20, 20))
+                .addComponent(jLabel11))
         );
+
+        webBrowserPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         javax.swing.GroupLayout webBrowserPanelLayout = new javax.swing.GroupLayout(webBrowserPanel);
         webBrowserPanel.setLayout(webBrowserPanelLayout);
         webBrowserPanelLayout.setHorizontalGroup(
             webBrowserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 592, Short.MAX_VALUE)
+            .addGap(0, 698, Short.MAX_VALUE)
         );
         webBrowserPanelLayout.setVerticalGroup(
             webBrowserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -240,22 +274,17 @@ public class FacebookInternalFrame extends javax.swing.JInternalFrame {
             globaljPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(globaljPanelLayout.createSequentialGroup()
                 .addGroup(globaljPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 444, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(webBrowserPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         globaljPanelLayout.setVerticalGroup(
             globaljPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(globaljPanelLayout.createSequentialGroup()
-                .addGroup(globaljPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(globaljPanelLayout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jSeparator1))
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
             .addComponent(webBrowserPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -275,10 +304,11 @@ public class FacebookInternalFrame extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void getPermissionjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_getPermissionjButtonActionPerformed
-         System.out.println("Running opening new Facebook web Browser window ...");
+    private void firstFacebookConnection() {
+        System.out.println("Running opening new Facebook web Browser window ...");
         System.out.println(facebook.getFb_url());
+        NativeInterface.open();
+        NativeInterface.initialize();
         final JWebBrowser webBrowser = new JWebBrowser();
         webBrowser.setMenuBarVisible(false);
         webBrowser.setButtonBarVisible(false);
@@ -303,8 +333,85 @@ public class FacebookInternalFrame extends javax.swing.JInternalFrame {
         });
         webBrowserPanel.add(webBrowser, BorderLayout.CENTER);
         webBrowser.validate();
-//webBrowserPanel.setVisible(true);
+        webBrowser.setSize(400, 500);
+        webBrowserPanel.setVisible(true);
+    }
+
+    private void seconfFacebookConnection() {
+        facebook.setApiKey(apiKeyTextField1.getText().toString());
+        System.out.println("API Key" + facebook.getApiKey());
+        facebook.setSecretKey("Secret Key" + secretKeyjTextField1.getText().toString());
+        System.out.println(facebook.getSecretKey());
+        System.out.println("Running second Step Facebook web Browser window ...");
+        NativeInterface.open();
+        NativeInterface.initialize();
+        final JWebBrowser webBrowser = new JWebBrowser();
+        System.out.println(facebook.getFirstRequest());
+        webBrowser.navigate(facebook.getFirstRequest());
+        webBrowser.addWebBrowserListener(new WebBrowserAdapter() {
+            @Override
+            public void locationChanged(WebBrowserNavigationEvent e) {
+                super.locationChanged(e);
+                // Check if first request was not done
+                System.out.println("FirstRequest Status is : " + facebook.isFirstRequestDone());
+                if (!facebook.isFirstRequestDone()) {
+                    // Check if you left the location and were redirected to the next 
+                    // location
+                    if (e.getNewResourceLocation().contains("http://www.facebook.com/connect/login_success.html?code=")) {
+                        // If it successfully redirects you, get the verification code
+                        // and go for a second request
+                        String[] splits = e.getNewResourceLocation().split("=");
+                        String stage2temp = facebook.getSecondRequest() + splits[1];
+                        System.out.println("First =" + splits[1]);
+                        webBrowser.navigate(stage2temp);
+                        facebook.setFirstRequestDone(true);
+                    }
+                } else {
+                    // If secondRequest is not done yet, you perform this and get the 
+                    // access_token
+                    System.out.println("secondRequest status is : " + facebook.isSecondRequestDone());
+                    if (!facebook.isSecondRequestDone()) {
+                        System.out.println(webBrowser.getHTMLContent());
+                        // Create reader with the html content
+                        StringReader readerSTR = new StringReader(webBrowser.getHTMLContent());
+                        // Create a callback for html parser
+                        HTMLEditorKit.ParserCallback callback
+                                = new HTMLEditorKit.ParserCallback() {
+                                    @Override
+                                    public void handleText(char[] data, int pos) {
+                                        System.out.println(data);
+                                        // because there is only one line with the access_token 
+                                        // in the html content you can parse it.
+                                        String string = new String(data);
+                                        String[] temp1 = string.split("&");
+                                        String[] temp2 = temp1[0].split("=");
+                                        System.out.println("access tocken=" + temp2);
+                                        facebook.setAccessToken(temp2[1]);
+                                    }
+                                };
+                        try {
+                            // Call the parse method 
+                            new ParserDelegator().parse(readerSTR, callback, false);
+                        } catch (IOException e1) {
+                            e1.printStackTrace();
+                        }
+                        // After everything is done, you can dispose the jframe
+                        //authFrame.dispose();     
+                        webBrowserPanel.add(webBrowser, BorderLayout.CENTER);
+                        webBrowser.validate();
+                        webBrowserPanel.setVisible(true);
+                    }
+                }
+            }
+        });
+
+    }
+    private void getPermissionjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_getPermissionjButtonActionPerformed
+        seconfFacebookConnection();
     }//GEN-LAST:event_getPermissionjButtonActionPerformed
+    private void loginToFBjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginToFBjButtonActionPerformed
+        firstFacebookConnection();
+    }//GEN-LAST:event_loginToFBjButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -318,6 +425,7 @@ public class FacebookInternalFrame extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -329,7 +437,7 @@ public class FacebookInternalFrame extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JButton loginToFBjButton;
     private javax.swing.JTextField secretKeyjTextField1;
     private javax.swing.JPanel webBrowserPanel;
     // End of variables declaration//GEN-END:variables

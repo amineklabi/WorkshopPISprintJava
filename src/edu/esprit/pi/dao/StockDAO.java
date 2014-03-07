@@ -129,14 +129,14 @@ public class StockDAO extends IDAO<Stock> {
     }
 
     @Override
-    public void delete(Stock article) {
-    if (find(article.getId()) != null) { 
+    public void delete(Stock stock) {
+    if (find(stock.getId()) != null) { 
 
             String sql = "DELETE FROM T_STOCK WHERE ID=?";
             PreparedStatement preparedStatement = null;
             try {
                 preparedStatement = connection.prepareStatement(sql);
-                preparedStatement.setInt(1, article.getId());
+                preparedStatement.setInt(1, stock.getId());
                 preparedStatement.executeUpdate();                                                
                 System.out.println(sql);
             } catch (SQLException ex) {

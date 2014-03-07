@@ -9,7 +9,6 @@ import edu.esprit.pi.dao.StockDAO;
 import edu.esprit.pi.entites.Stock;
 import java.util.List;
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.general.DefaultPieDataset;
 
@@ -17,11 +16,12 @@ import org.jfree.data.general.DefaultPieDataset;
  *
  * @author Amine
  */
-public class PieChart {
+public class PieChart implements IChart{
     DefaultPieDataset dataset;//Dataset qui va contenir les Données
     JFreeChart graphe;        //Graphe
 
 
+    @Override
     public JFreeChart construireChart3D() {
         List<Stock> list = new StockDAO().findAll();
         dataset = new DefaultPieDataset();
@@ -33,6 +33,7 @@ public class PieChart {
         return graphe;
     }
     
+    @Override
     public JFreeChart construireChart2D() {
         List<Stock> list = new StockDAO().findAll();
         dataset = new DefaultPieDataset();
