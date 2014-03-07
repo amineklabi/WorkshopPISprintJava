@@ -17,7 +17,7 @@ import javax.swing.table.AbstractTableModel;
 public class ArticleTableModel extends AbstractTableModel {
 
     List<Article> list;
-    String[] entete = {"Client", "Article acheté", "quantité"};
+    String[] entete = {"ID","Client", "Article acheté", "quantité"};
 
     public ArticleTableModel() {
         list = new ArticleDAO().findAll();
@@ -37,10 +37,12 @@ public class ArticleTableModel extends AbstractTableModel {
     public Object getValueAt(int rowIndex, int columnIndex) {
         switch (columnIndex) {
             case 0:
-                return list.get(rowIndex).getClient().getPrenom();
+                return list.get(rowIndex).getId();
             case 1:
-                return list.get(rowIndex).getStock().getLibelle();
+                return list.get(rowIndex).getClient().getPrenom();
             case 2:
+                return list.get(rowIndex).getStock().getLibelle();
+            case 3:
                 return list.get(rowIndex).getQuantite();
             default:
                 throw new IllegalArgumentException();

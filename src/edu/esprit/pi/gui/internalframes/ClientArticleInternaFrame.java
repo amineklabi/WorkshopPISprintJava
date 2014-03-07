@@ -17,6 +17,7 @@ import edu.esprit.pi.entites.Client;
 import edu.esprit.pi.entites.Stock;
 import edu.esprit.pi.gui.tablemodels.ArticleTableModel;
 import edu.esprit.pi.gui.tablemodels.ClientTableModel;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -25,10 +26,11 @@ import javax.swing.JOptionPane;
  * @author Amine
  */
 public class ClientArticleInternaFrame extends javax.swing.JInternalFrame {
-    
+
     Client c = new Client();
     Stock s = new Stock();
     Article a = new Article();
+    List<Article> articles;
     //Stock s = new 
     ClientDAO clientDAO = new ClientDAO();
     StockDAO stockDAO = new StockDAO();
@@ -319,6 +321,11 @@ public class ClientArticleInternaFrame extends javax.swing.JInternalFrame {
         });
 
         supprimerjButton6.setText("Supprimer");
+        supprimerjButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                supprimerjButton6ActionPerformed(evt);
+            }
+        });
 
         raffraichirjButton7.setText("Raffraichir");
         raffraichirjButton7.addActionListener(new java.awt.event.ActionListener() {
@@ -348,7 +355,7 @@ public class ClientArticleInternaFrame extends javax.swing.JInternalFrame {
                     .addComponent(quitterjButton5)
                     .addComponent(supprimerjButton6)
                     .addComponent(raffraichirjButton7))
-                .addGap(0, 12, Short.MAX_VALUE))
+                .addGap(0, 14, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -366,10 +373,9 @@ public class ClientArticleInternaFrame extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -380,9 +386,7 @@ public class ClientArticleInternaFrame extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -402,7 +406,7 @@ public class ClientArticleInternaFrame extends javax.swing.JInternalFrame {
 
     private void effacerjButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_effacerjButton4ActionPerformed
         cinjTextField1.setText("");
-        nomjTextField2.setText("");        
+        nomjTextField2.setText("");
         prenomjTextField3.setText("");
         adressejTextField4.setText("");
     }//GEN-LAST:event_effacerjButton4ActionPerformed
@@ -426,7 +430,7 @@ public class ClientArticleInternaFrame extends javax.swing.JInternalFrame {
 
     private void clientjComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clientjComboBox1ActionPerformed
         c = clientDAO.find(Integer.parseInt(clientjComboBox1.getSelectedItem().toString()));
-        nomClientjLabel8.setText(c.getPrenom()  +" "+c.getNom());
+        nomClientjLabel8.setText(c.getPrenom() + " " + c.getNom());
     }//GEN-LAST:event_clientjComboBox1ActionPerformed
 
     private void ajoutArticlejButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajoutArticlejButton8ActionPerformed
@@ -436,9 +440,9 @@ public class ClientArticleInternaFrame extends javax.swing.JInternalFrame {
         a.setStock(s);
         int qtite = Integer.parseInt(quantitejSpinner1.getValue().toString());
         a.setQuantite(qtite);
-        if(qtite > s.getQtiteStock()){
-            JOptionPane.showMessageDialog(this, "La quatité qui reste est insuffisante  :"+s.getQtiteStock()+" unités");
-        }else{
+        if (qtite > s.getQtiteStock()) {
+            JOptionPane.showMessageDialog(this, "La quatité qui reste est insuffisante  :" + s.getQtiteStock() + " unités");
+        } else {
             s.setQtiteStock(s.getQtiteStock() - qtite);
             stockDAO.update(s);
             articleDAO.create(a);
@@ -450,6 +454,23 @@ public class ClientArticleInternaFrame extends javax.swing.JInternalFrame {
         ArticleTableModel atm = new ArticleTableModel();
         articlejTable1.setModel(atm);
     }//GEN-LAST:event_raffraichirjButton7ActionPerformed
+
+    private void supprimerjButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supprimerjButton6ActionPerformed
+        int[] selected = articlejTable1.getSelectedRows();
+         System.out.println("selected rows " + selected.length);
+        //articles = new ArrayList<>();
+        List<Article> toRemove = new ArrayList<Article>(selected.length);
+        System.out.println("Taille de la liste d'articles to remove : "+toRemove.size());
+        for (int i = 0; i < selected.length; i++) {
+            Article a = articles.get(articlejTable1.convertRowIndexToModel(selected[i]));
+            System.out.println(a);
+            toRemove.add(a);
+        }
+        for (Article a : toRemove) {
+            articleDAO.delete(a);
+        }
+        articles.removeAll(toRemove);
+    }//GEN-LAST:event_supprimerjButton6ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

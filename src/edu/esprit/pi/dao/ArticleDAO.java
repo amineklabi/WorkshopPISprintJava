@@ -64,8 +64,8 @@ public class ArticleDAO extends IDAO<Article> {
 
     @Override
     public void create(Article article) {
-        if (find(article.getId()) == null) {
-            String sql = "INSERT INTO T_ STOCK(quatite,fk_id_client,fk_id_stock) VALUES (?,?,?)";
+       if (find(article.getId()) == null) {
+            String sql = "INSERT INTO T_ARTICLE (quantite,fk_id_client,fk_id_stock) VALUES (?,?,?)";
             PreparedStatement preparedStatement = null;
             try {
                 preparedStatement = connection.prepareStatement(sql);
@@ -93,7 +93,7 @@ public class ArticleDAO extends IDAO<Article> {
     public void update(Article article) {
         if (find(article.getId()) != null) {
 
-            String sql = "UPDATE T_STOCK SET quanite=?,fk_id_client=?,fk_id_stock=? WHERE ID=?";
+            String sql = "UPDATE T_ARTICLE SET quanite=?,fk_id_client=?,fk_id_stock=? WHERE ID=?";
             PreparedStatement preparedStatement = null;
             try {
                 preparedStatement = connection.prepareStatement(sql);
@@ -161,7 +161,7 @@ public class ArticleDAO extends IDAO<Article> {
                 list.add(found);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ArticleDAO.class.getName()).log(Level.SEVERE, "find all depots failed", ex);
+            Logger.getLogger(ArticleDAO.class.getName()).log(Level.SEVERE, "find all articles failed", ex);
         } finally {
             try {
                 if (resultSet != null) {
@@ -179,10 +179,7 @@ public class ArticleDAO extends IDAO<Article> {
 
     @Override
     public Article find(int id) {
-        String sql = "SELECT a.* FROM T_ARTICLE a "
-                + "INNER JOIN T_CLIENT b ON a.fk_id_client=b.cin "
-                + "INNER JOIN T_STOCK c ON a.fk_id_stock=c.id "
-                + "WHERE fk_id_client=?";
+        String sql = "SELECT * FROM T_ARTICLE a WHERE id=?";
         Article found = new Article();
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;

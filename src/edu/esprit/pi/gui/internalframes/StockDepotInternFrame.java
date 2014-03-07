@@ -441,16 +441,16 @@ public class StockDepotInternFrame extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_quitjButton1ActionPerformed
 
     private void supprimerjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supprimerjButtonActionPerformed
-       int[] selected = stockModeljTable1.getSelectedRows();
-        System.out.println("selected rows "+selected.length);
-       List<Stock> toRemove = new ArrayList<Stock>(selected.length);
-       for(int i = 0; i < selected.length; i++){
-           Stock s = listStock.get(stockModeljTable1.convertRowIndexToModel(selected[i]));
-           System.out.println(s);
-           toRemove.add(s);
-       }
-        System.out.println("La taille de la liste de stock à Supprimer .."+toRemove.size());
-        for(Stock s : toRemove){
+        int[] selected = stockModeljTable1.getSelectedRows();
+        System.out.println("selected rows " + selected.length);
+        List<Stock> toRemove = new ArrayList<Stock>(selected.length);
+        for (int i = 0; i < selected.length; i++) {
+            Stock s = listStock.get(stockModeljTable1.convertRowIndexToModel(selected[i]));
+            System.out.println(s);
+            toRemove.add(s);
+        }
+        System.out.println("La taille de la liste de stock à Supprimer .." + toRemove.size());
+        for (Stock s : toRemove) {
             stockDAO.delete(s);
         }
         listStock.removeAll(toRemove);
