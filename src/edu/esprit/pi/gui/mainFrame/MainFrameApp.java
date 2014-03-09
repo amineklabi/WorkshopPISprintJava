@@ -17,21 +17,14 @@
  */
 package edu.esprit.pi.gui.mainFrame;
 
-import chrriis.dj.nativeswing.swtimpl.components.JWebBrowser;
-import chrriis.dj.nativeswing.swtimpl.components.WebBrowserAdapter;
-import chrriis.dj.nativeswing.swtimpl.components.WebBrowserNavigationEvent;
 import edu.esprit.pi.gui.internalframes.ClientArticleInternaFrame;
+import edu.esprit.pi.gui.internalframes.FacebookInfosJInternalFrame;
 import edu.esprit.pi.gui.internalframes.FacebookInternalFrame;
 import edu.esprit.pi.gui.internalframes.MailInternalFrame;
+import edu.esprit.pi.gui.internalframes.PDFwithItextInternalFrame;
 import edu.esprit.pi.gui.internalframes.StatistiquesInternalFrame;
 import edu.esprit.pi.gui.internalframes.StockDepotInternFrame;
-import edu.esprit.pi.workshop.facebook.Facebook;
-import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.JInternalFrame;
-import javax.swing.JPanel;
-import javax.swing.Timer;
+
 
 /**
  *
@@ -74,9 +67,11 @@ public class MainFrameApp extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         facebookAppjMenuItem2 = new javax.swing.JMenuItem();
+        getFbObjectsjMenuItem = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         statJFreeChartMenuItem2 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
+        genratePdfItextjMenuItem = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         helpMenu = new javax.swing.JMenu();
         contentMenuItem = new javax.swing.JMenuItem();
@@ -85,7 +80,7 @@ public class MainFrameApp extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sprint 1 Java workchops");
         setBackground(new java.awt.Color(255, 255, 255));
-        setPreferredSize(new java.awt.Dimension(1037, 539));
+        setPreferredSize(new java.awt.Dimension(1050, 550));
 
         menuBar.setForeground(new java.awt.Color(102, 153, 255));
 
@@ -171,13 +166,21 @@ public class MainFrameApp extends javax.swing.JFrame {
 
         jMenu2.setText("Facebook");
 
-        facebookAppjMenuItem2.setText("Facebook Sample");
+        facebookAppjMenuItem2.setText("Facebook Connect");
         facebookAppjMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 facebookAppjMenuItem2ActionPerformed(evt);
             }
         });
         jMenu2.add(facebookAppjMenuItem2);
+
+        getFbObjectsjMenuItem.setText("Get some FB infos");
+        getFbObjectsjMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                getFbObjectsjMenuItemActionPerformed(evt);
+            }
+        });
+        jMenu2.add(getFbObjectsjMenuItem);
 
         menuBar.add(jMenu2);
 
@@ -194,6 +197,15 @@ public class MainFrameApp extends javax.swing.JFrame {
         menuBar.add(jMenu3);
 
         jMenu4.setText("Rapport");
+
+        genratePdfItextjMenuItem.setText("Generate pdf with itext");
+        genratePdfItextjMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                genratePdfItextjMenuItemActionPerformed(evt);
+            }
+        });
+        jMenu4.add(genratePdfItextjMenuItem);
+
         menuBar.add(jMenu4);
 
         jMenu5.setText("Géolocalisation");
@@ -263,6 +275,18 @@ public class MainFrameApp extends javax.swing.JFrame {
         sif.show();
     }//GEN-LAST:event_statJFreeChartMenuItem2ActionPerformed
 
+    private void getFbObjectsjMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_getFbObjectsjMenuItemActionPerformed
+        FacebookInfosJInternalFrame fijif = new FacebookInfosJInternalFrame();
+        masterjdesktopPane.add(fijif);
+        fijif.show();
+    }//GEN-LAST:event_getFbObjectsjMenuItemActionPerformed
+
+    private void genratePdfItextjMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_genratePdfItextjMenuItemActionPerformed
+        PDFwithItextInternalFrame pdfiif = new PDFwithItextInternalFrame();
+        masterjdesktopPane.add(pdfiif);
+        pdfiif.show();
+    }//GEN-LAST:event_genratePdfItextjMenuItemActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -308,8 +332,10 @@ public class MainFrameApp extends javax.swing.JFrame {
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenuItem facebookAppjMenuItem2;
     private javax.swing.JMenu fileMenu;
+    private javax.swing.JMenuItem genratePdfItextjMenuItem;
     private javax.swing.JMenuItem gererClientjMenuItem1;
     private javax.swing.JMenuItem gererStock;
+    private javax.swing.JMenuItem getFbObjectsjMenuItem;
     private javax.swing.JMenu helpMenu;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;

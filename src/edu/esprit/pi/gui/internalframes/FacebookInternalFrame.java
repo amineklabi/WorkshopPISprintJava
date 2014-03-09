@@ -6,6 +6,14 @@
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
+ *//*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ *//*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
 package edu.esprit.pi.gui.internalframes;
 
@@ -31,7 +39,25 @@ import javax.swing.text.html.parser.ParserDelegator;
  */
 public class FacebookInternalFrame extends javax.swing.JInternalFrame {
 
-    Facebook facebook = new Facebook();
+    //Facebook facebook = new Facebook();
+    public static String API_KEY = "1452298744999266";
+  public static String SECRET = "ce9488263f578135c16fe2d78d118640";
+
+  public static String firstRequest = "https://graph.facebook.com/oauth/authorize?"
+  + "client_id="
+  + API_KEY
+  + "&redirect_uri=http://www.facebook.com/connect/login_success.html&"
+  + "scope=publish_stream,offline_access,create_event,read_stream,email,user_birthday";
+  
+  public static String secondRequest="https://graph.facebook.com/oauth/access_token?"
+  + "client_id="
+  + API_KEY
+  + "&redirect_uri=http://www.facebook.com/connect/login_success.html&"
+  + "client_secret=" + SECRET + "&code=";
+
+  public static String access_token = "";
+  public static boolean firstRequestDone = false;
+  public static boolean secondRequestDone = false;
 
     /**
      * Creates new form FacebookInernalFrame
@@ -63,11 +89,8 @@ public class FacebookInternalFrame extends javax.swing.JInternalFrame {
         secretKeyjTextField1 = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         getAccessTokenjButton = new javax.swing.JButton();
-        jLabel9 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         accessTokenjTextArea1 = new javax.swing.JTextArea();
-        jLabel10 = new javax.swing.JLabel();
-        expiresTokenjLabel11 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         getPermissionjButton = new javax.swing.JButton();
@@ -118,32 +141,31 @@ public class FacebookInternalFrame extends javax.swing.JInternalFrame {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("2 nd Step"));
 
-        jLabel5.setText("1 - Sur le tableau de bord de l'application crée, récupérer les deux valeurs suivantes :");
+        jLabel5.setText("1 - Récupérer l'ID et la clé secrète de l'application :");
 
-        jLabel6.setText("Identifiant de l'application : ");
+        jLabel6.setText("ID App : ");
 
         apiKeyTextField1.setText("1452298744999266");
 
-        jLabel7.setText("Clé secrète :");
+        jLabel7.setText("Secret Key :");
 
         secretKeyjTextField1.setText("ce9488263f578135c16fe2d78d118640");
 
         jLabel8.setText("3 - récupérer le jeton d'authentification avec votre application.");
 
         getAccessTokenjButton.setText("get token");
-
-        jLabel9.setText("Access Token :");
+        getAccessTokenjButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                getAccessTokenjButtonActionPerformed(evt);
+            }
+        });
 
         accessTokenjTextArea1.setEditable(false);
         accessTokenjTextArea1.setColumns(20);
         accessTokenjTextArea1.setRows(5);
         jScrollPane1.setViewportView(accessTokenjTextArea1);
 
-        jLabel10.setText("Access Token expires after :");
-
-        expiresTokenjLabel11.setText(" ");
-
-        jLabel11.setText("4 - On procéder à la récupération de quelques infos de votre compte Facebook.");
+        jLabel11.setText("4 - On peut procéder à récupérer quelques informations");
 
         jLabel12.setText("2 - Confirmer la permission sur l'application : ");
 
@@ -168,51 +190,42 @@ public class FacebookInternalFrame extends javax.swing.JInternalFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel3Layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel8)
+                                .addGroup(jPanel3Layout.createSequentialGroup()
+                                    .addComponent(jLabel6)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(apiKeyTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel3Layout.createSequentialGroup()
+                                    .addComponent(jLabel13)
+                                    .addGap(50, 50, 50)
+                                    .addComponent(loginToFBjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(jPanel3Layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(jLabel12)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(getPermissionjButton))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(jScrollPane1)))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(getAccessTokenjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(expiresTokenjLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(29, 29, 29))
+                    .addComponent(jLabel5)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel11)
-                            .addComponent(jLabel5)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addGap(76, 76, 76)
-                                .addComponent(secretKeyjTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jLabel9))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel10))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel8)
+                        .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(getAccessTokenjButton))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel12)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(getPermissionjButton))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(apiKeyTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel13)
-                        .addGap(50, 50, 50)
-                        .addComponent(loginToFBjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(secretKeyjTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel11))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -227,32 +240,23 @@ public class FacebookInternalFrame extends javax.swing.JInternalFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(apiKeyTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(secretKeyjTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12)
+                    .addComponent(getPermissionjButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(194, 194, 194)
-                        .addComponent(expiresTokenjLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 18, Short.MAX_VALUE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(secretKeyjTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel12)
-                            .addComponent(getPermissionjButton))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel8)
-                            .addComponent(getAccessTokenjButton))
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel9)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(jLabel8)
                 .addGap(10, 10, 10)
-                .addComponent(jLabel10)
+                .addComponent(getAccessTokenjButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel11))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel11)
+                .addGap(58, 58, 58))
         );
 
         webBrowserPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -261,7 +265,7 @@ public class FacebookInternalFrame extends javax.swing.JInternalFrame {
         webBrowserPanel.setLayout(webBrowserPanelLayout);
         webBrowserPanelLayout.setHorizontalGroup(
             webBrowserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 698, Short.MAX_VALUE)
+            .addGap(0, 611, Short.MAX_VALUE)
         );
         webBrowserPanelLayout.setVerticalGroup(
             webBrowserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -274,7 +278,7 @@ public class FacebookInternalFrame extends javax.swing.JInternalFrame {
             globaljPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(globaljPanelLayout.createSequentialGroup()
                 .addGroup(globaljPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(webBrowserPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -282,11 +286,14 @@ public class FacebookInternalFrame extends javax.swing.JInternalFrame {
         globaljPanelLayout.setVerticalGroup(
             globaljPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(globaljPanelLayout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(globaljPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(globaljPanelLayout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(webBrowserPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
-            .addComponent(webBrowserPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -305,26 +312,28 @@ public class FacebookInternalFrame extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     private void firstFacebookConnection() {
+        webBrowserPanel.removeAll();
         System.out.println("Running opening new Facebook web Browser window ...");
-        System.out.println(facebook.getFb_url());
+        System.out.println("http://www.facebook.com/");
         NativeInterface.open();
         NativeInterface.initialize();
         final JWebBrowser webBrowser = new JWebBrowser();
         webBrowser.setMenuBarVisible(false);
         webBrowser.setButtonBarVisible(false);
         webBrowser.setLocationBarVisible(false);
-        webBrowser.navigate(facebook.getFb_url());
+        webBrowser.navigate("http://www.facebook.com/");
         webBrowserPanel.setLayout(new java.awt.BorderLayout());
         webBrowser.addWebBrowserListener(new WebBrowserAdapter() {
             @Override
             public void locationChanging(WebBrowserNavigationEvent e) {
                 super.locationChanging(e);
                 System.out.println(e.getNewResourceLocation());
-                if (!e.getNewResourceLocation().equals(facebook.getFb_url())) {
+                if (!e.getNewResourceLocation().equals("http://www.facebook.com/")) {
                     Timer timer = new Timer(2000, new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent arg0) {
-                            webBrowserPanel.setVisible(true);
+                            //webBrowserPanel.setVisible(true);
+
                         }
                     });
                     timer.start();
@@ -337,40 +346,34 @@ public class FacebookInternalFrame extends javax.swing.JInternalFrame {
         webBrowserPanel.setVisible(true);
     }
 
-    private void seconfFacebookConnection() {
-        facebook.setApiKey(apiKeyTextField1.getText().toString());
-        System.out.println("API Key" + facebook.getApiKey());
-        facebook.setSecretKey("Secret Key" + secretKeyjTextField1.getText().toString());
-        System.out.println(facebook.getSecretKey());
+    private void secondFacebookConnection() {
+        webBrowserPanel.removeAll();
         System.out.println("Running second Step Facebook web Browser window ...");
         NativeInterface.open();
         NativeInterface.initialize();
         final JWebBrowser webBrowser = new JWebBrowser();
-        System.out.println(facebook.getFirstRequest());
-        webBrowser.navigate(facebook.getFirstRequest());
+        webBrowser.navigate(firstRequest);
         webBrowser.addWebBrowserListener(new WebBrowserAdapter() {
             @Override
             public void locationChanged(WebBrowserNavigationEvent e) {
                 super.locationChanged(e);
                 // Check if first request was not done
-                System.out.println("FirstRequest Status is : " + facebook.isFirstRequestDone());
-                if (!facebook.isFirstRequestDone()) {
+                if (!firstRequestDone) {
                     // Check if you left the location and were redirected to the next 
                     // location
                     if (e.getNewResourceLocation().contains("http://www.facebook.com/connect/login_success.html?code=")) {
                         // If it successfully redirects you, get the verification code
                         // and go for a second request
                         String[] splits = e.getNewResourceLocation().split("=");
-                        String stage2temp = facebook.getSecondRequest() + splits[1];
+                        String stage2temp = secondRequest + splits[1];
                         System.out.println("First =" + splits[1]);
                         webBrowser.navigate(stage2temp);
-                        facebook.setFirstRequestDone(true);
+                        firstRequestDone = true;
                     }
                 } else {
                     // If secondRequest is not done yet, you perform this and get the 
                     // access_token
-                    System.out.println("secondRequest status is : " + facebook.isSecondRequestDone());
-                    if (!facebook.isSecondRequestDone()) {
+                    if (!secondRequestDone) {
                         System.out.println(webBrowser.getHTMLContent());
                         // Create reader with the html content
                         StringReader readerSTR = new StringReader(webBrowser.getHTMLContent());
@@ -386,43 +389,46 @@ public class FacebookInternalFrame extends javax.swing.JInternalFrame {
                                         String[] temp1 = string.split("&");
                                         String[] temp2 = temp1[0].split("=");
                                         System.out.println("access tocken=" + temp2);
-                                        facebook.setAccessToken(temp2[1]);
+                                        access_token = temp2[1];
+                                        
                                     }
                                 };
                         try {
                             // Call the parse method 
                             new ParserDelegator().parse(readerSTR, callback, false);
-                        } catch (IOException e1) {
-                            e1.printStackTrace();
+                        } catch (IOException ex) {
+                            ex.printStackTrace();
                         }
                         // After everything is done, you can dispose the jframe
                         //authFrame.dispose();     
-                        webBrowserPanel.add(webBrowser, BorderLayout.CENTER);
-                        webBrowser.validate();
-                        webBrowserPanel.setVisible(true);
+
                     }
                 }
             }
         });
-
+        webBrowserPanel.add(webBrowser, BorderLayout.CENTER);
+        webBrowser.validate();
+        webBrowser.setSize(600, 500);
+        webBrowserPanel.setVisible(true);
     }
     private void getPermissionjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_getPermissionjButtonActionPerformed
-        seconfFacebookConnection();
+        secondFacebookConnection();
     }//GEN-LAST:event_getPermissionjButtonActionPerformed
     private void loginToFBjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginToFBjButtonActionPerformed
         firstFacebookConnection();
     }//GEN-LAST:event_loginToFBjButtonActionPerformed
+    private void getAccessTokenjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_getAccessTokenjButtonActionPerformed
+        accessTokenjTextArea1.setText(access_token);
+    }//GEN-LAST:event_getAccessTokenjButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea accessTokenjTextArea1;
     private javax.swing.JTextField apiKeyTextField1;
-    private javax.swing.JLabel expiresTokenjLabel11;
     private javax.swing.JButton getAccessTokenjButton;
     private javax.swing.JButton getPermissionjButton;
     private javax.swing.JPanel globaljPanel;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
@@ -433,7 +439,6 @@ public class FacebookInternalFrame extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
