@@ -65,7 +65,7 @@ public class ArticleDAO extends IDAO<Article> {
     @Override
     public void create(Article article) {
        if (find(article.getId()) == null) {
-            String sql = "INSERT INTO T_ARTICLE (quantite,fk_id_client,fk_id_stock) VALUES (?,?,?)";
+           String sql = "INSERT INTO T_ARTICLE (quantite,fk_id_client,fk_id_stock) VALUES (?,?,?)";
             PreparedStatement preparedStatement = null;
             try {
                 preparedStatement = connection.prepareStatement(sql);
@@ -73,7 +73,6 @@ public class ArticleDAO extends IDAO<Article> {
                 preparedStatement.setInt(2, article.getClient().getCin());
                 preparedStatement.setInt(3, article.getStock().getId());
                 preparedStatement.executeUpdate();
-
                 System.out.println(sql);
             } catch (SQLException ex) {
                 Logger.getLogger(ArticleDAO.class.getName()).log(Level.SEVERE, "insert failed", ex);
@@ -179,8 +178,8 @@ public class ArticleDAO extends IDAO<Article> {
 
     @Override
     public Article find(int id) {
-        String sql = "SELECT * FROM T_ARTICLE a WHERE id=?";
-        Article found = new Article();
+        String sql = "SELECT * FROM T_ARTICLE WHERE id=?";
+        Article found = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
         try {
@@ -189,10 +188,10 @@ public class ArticleDAO extends IDAO<Article> {
             resultSet = preparedStatement.executeQuery();
             System.out.println(sql);
             while (resultSet.next()) {
+                found = new Article();
                 found.setId(resultSet.getInt("ID"));
                 found.setQuantite(resultSet.getInt("quantite"));
                 found.setClient(new ClientDAO().find(resultSet.getInt("FK_ID_CLIENT")));
-                System.out.println(resultSet.getInt("FK_ID_STOCK"));
                 found.setStock(new StockDAO().find(resultSet.getInt("FK_ID_STOCK")));
             }
         } catch (SQLException ex) {

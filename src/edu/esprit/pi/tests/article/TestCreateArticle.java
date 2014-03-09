@@ -22,8 +22,8 @@ public class TestCreateArticle {
         Article a = new Article();
         ArticleDAO articleDAO = new ArticleDAO();
         a.setClient(new ClientDAO().find(4887569));
-        a.setQuantite(3);
-        a.setStock(new StockDAO().find(2));
+        a.setQuantite(10);
+        a.setStock(new StockDAO().find(7));
         articleDAO.create(a);
     }
 }

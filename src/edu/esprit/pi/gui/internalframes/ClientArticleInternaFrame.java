@@ -436,16 +436,18 @@ public class ClientArticleInternaFrame extends javax.swing.JInternalFrame {
     private void ajoutArticlejButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajoutArticlejButton8ActionPerformed
         c = clientDAO.find(Integer.parseInt(clientjComboBox1.getSelectedItem().toString()));
         s = stockDAO.find(Integer.parseInt(articlestockjComboBox2.getSelectedItem().toString()));
-        a.setClient(c);
-        a.setStock(s);
         int qtite = Integer.parseInt(quantitejSpinner1.getValue().toString());
-        a.setQuantite(qtite);
-        if (qtite > s.getQtiteStock()) {
-            JOptionPane.showMessageDialog(this, "La quatité qui reste est insuffisante  :" + s.getQtiteStock() + " unités");
-        } else {
-            s.setQtiteStock(s.getQtiteStock() - qtite);
-            stockDAO.update(s);
+         a.setClient(c);
+        a.setStock(s);
+        int oldQtite = s.getQtiteStock();
+        if (qtite > oldQtite) {
+            JOptionPane.showMessageDialog(this, "La quatité qui reste est insuffisante  :" +s.getQtiteStock()+ " unités");
+        } else if(qtite <= oldQtite) {
+            s.setQtiteStock(oldQtite - qtite);
+            a.setQuantite(qtite);
+            System.out.println("Insertion de l'article a : "+a.toString());
             articleDAO.create(a);
+            stockDAO.update(s);      
             JOptionPane.showMessageDialog(this, "Achat effectué avec succès .");
         }
     }//GEN-LAST:event_ajoutArticlejButton8ActionPerformed
