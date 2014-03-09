@@ -460,7 +460,7 @@ public class ClientArticleInternaFrame extends javax.swing.JInternalFrame {
     private void supprimerjButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supprimerjButton6ActionPerformed
         int[] selected = articlejTable1.getSelectedRows();
          System.out.println("selected rows " + selected.length);
-        //articles = new ArrayList<>();
+         articles = articleDAO.findAll();
         List<Article> toRemove = new ArrayList<Article>(selected.length);
         System.out.println("Taille de la liste d'articles to remove : "+toRemove.size());
         for (int i = 0; i < selected.length; i++) {

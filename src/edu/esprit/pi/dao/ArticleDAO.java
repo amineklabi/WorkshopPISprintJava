@@ -118,7 +118,7 @@ public class ArticleDAO extends IDAO<Article> {
     @Override
     public void delete(Article article) {
         if (find(article.getId()) != null) {
-            String sql = "DELETE FROM T_STOCK WHERE ID=?";
+            String sql = "DELETE FROM T_ARTICLE WHERE ID=?";
             PreparedStatement preparedStatement = null;
             try {
                 preparedStatement = connection.prepareStatement(sql);
