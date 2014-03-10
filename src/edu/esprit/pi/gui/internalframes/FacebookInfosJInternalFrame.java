@@ -25,6 +25,7 @@ public class FacebookInfosJInternalFrame extends javax.swing.JInternalFrame {
      * Creates new form FacebookInfosJInternalFrame
      */
     public FacebookInfosJInternalFrame() {
+        
         facebookClient = new DefaultFacebookClient(FacebookInternalFrame.access_token);
         initComponents();
     }

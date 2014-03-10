@@ -15,6 +15,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
+
 package edu.esprit.pi.gui.internalframes;
 
 import chrriis.dj.nativeswing.swtimpl.NativeInterface;
@@ -39,25 +41,23 @@ import javax.swing.text.html.parser.ParserDelegator;
  */
 public class FacebookInternalFrame extends javax.swing.JInternalFrame {
 
-    //Facebook facebook = new Facebook();
     public static String API_KEY = "1452298744999266";
-  public static String SECRET = "ce9488263f578135c16fe2d78d118640";
+    public static String SECRET = "ce9488263f578135c16fe2d78d118640";
+    public static String firstRequest = "https://graph.facebook.com/oauth/authorize?"
+            + "client_id="
+            + API_KEY
+            + "&redirect_uri=http://www.facebook.com/connect/login_success.html&"
+            + "scope=publish_stream,offline_access,create_event,read_stream,email,user_birthday";
 
-  public static String firstRequest = "https://graph.facebook.com/oauth/authorize?"
-  + "client_id="
-  + API_KEY
-  + "&redirect_uri=http://www.facebook.com/connect/login_success.html&"
-  + "scope=publish_stream,offline_access,create_event,read_stream,email,user_birthday";
-  
-  public static String secondRequest="https://graph.facebook.com/oauth/access_token?"
-  + "client_id="
-  + API_KEY
-  + "&redirect_uri=http://www.facebook.com/connect/login_success.html&"
-  + "client_secret=" + SECRET + "&code=";
+    public  static String secondRequest = "https://graph.facebook.com/oauth/access_token?"
+            + "client_id="
+            + API_KEY
+            + "&redirect_uri=http://www.facebook.com/connect/login_success.html&"
+            + "client_secret=" + SECRET + "&code=";
 
-  public static String access_token = "";
-  public static boolean firstRequestDone = false;
-  public static boolean secondRequestDone = false;
+    public static String access_token = "";
+    public static boolean firstRequestDone = false;
+    public static boolean secondRequestDone = false;
 
     /**
      * Creates new form FacebookInernalFrame
@@ -324,7 +324,6 @@ public class FacebookInternalFrame extends javax.swing.JInternalFrame {
                         @Override
                         public void actionPerformed(ActionEvent arg0) {
                             //webBrowserPanel.setVisible(true);
-
                         }
                     });
                     timer.start();
@@ -381,7 +380,7 @@ public class FacebookInternalFrame extends javax.swing.JInternalFrame {
                                         String[] temp2 = temp1[0].split("=");
                                         System.out.println("access tocken=" + temp2);
                                         access_token = temp2[1];
-                                        
+
                                     }
                                 };
                         try {
