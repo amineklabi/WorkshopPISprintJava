@@ -54,28 +54,12 @@ public class FacebookInfosJInternalFrame extends javax.swing.JInternalFrame {
         aboutjTextField = new javax.swing.JTextField();
         birthdayjTextField = new javax.swing.JTextField();
         getpagesLikedjButton = new javax.swing.JButton();
+        getUserPropertesjButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         consolejTextArea = new javax.swing.JTextArea();
 
         setClosable(true);
         setTitle("Facebook Objects");
-        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
-            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
-            }
-            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
-            }
-            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
-            }
-            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
-            }
-            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
-            }
-            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
-            }
-            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
-                formInternalFrameOpened(evt);
-            }
-        });
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -109,6 +93,13 @@ public class FacebookInfosJInternalFrame extends javax.swing.JInternalFrame {
         getpagesLikedjButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 getpagesLikedjButtonActionPerformed(evt);
+            }
+        });
+
+        getUserPropertesjButton.setText("get user properties");
+        getUserPropertesjButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                getUserPropertesjButtonActionPerformed(evt);
             }
         });
 
@@ -151,8 +142,10 @@ public class FacebookInfosJInternalFrame extends javax.swing.JInternalFrame {
                 .addGap(10, 10, 10))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(getpagesLikedjButton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(getpagesLikedjButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(getUserPropertesjButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -184,8 +177,10 @@ public class FacebookInfosJInternalFrame extends javax.swing.JInternalFrame {
                     .addComponent(jLabel7)
                     .addComponent(birthdayjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(getUserPropertesjButton)
+                .addGap(9, 9, 9)
                 .addComponent(getpagesLikedjButton)
-                .addContainerGap(84, Short.MAX_VALUE))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
 
         consolejTextArea.setColumns(20);
@@ -220,26 +215,7 @@ public class FacebookInfosJInternalFrame extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    public void fetchSinglePersonalInfos() {
-        System.out.println("Fetching User personal objects");
-
-        User user = facebookClient.fetchObject("me", User.class);
-//        Page page = facebookClient.fetchObject("Point Esprit", Page.class);
-
-        namejTextField.setText(user.getName());
-        usernamejTextField.setText(user.getUsername());
-        emailjTextField3.setText(user.getEmail());
-        fbIdjTextField.setText(user.getId());
-        aboutjTextField.setText(user.getRelationshipStatus());
-        birthdayjTextField.setText(user.getBirthday());
-        System.out.println("Name: " + user.getName());
-        System.out.println("Username: " + user.getUsername());
-        System.out.println("Email: " + user.getEmail());
-        System.out.println("ID Facebook: " + user.getId());
-        System.out.println("Relationship: " + user.getRelationshipStatus());
-        System.out.println("Birthday: " + user.getBirthday());
-        //       System.out.println("Page likes: " + page.getLikes());
-    }
+   
 
     public void getPagesLiked() {
         System.out.println("* Paging support *");
@@ -259,13 +235,29 @@ public class FacebookInfosJInternalFrame extends javax.swing.JInternalFrame {
             }
         }
     }
-    private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
-        fetchSinglePersonalInfos();
-    }//GEN-LAST:event_formInternalFrameOpened
-
     private void getpagesLikedjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_getpagesLikedjButtonActionPerformed
         getPagesLiked();
     }//GEN-LAST:event_getpagesLikedjButtonActionPerformed
+
+    private void getUserPropertesjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_getUserPropertesjButtonActionPerformed
+         System.out.println("Fetching User personal objects");
+        User user = facebookClient.fetchObject("me", User.class);
+
+
+        namejTextField.setText(user.getName());
+        usernamejTextField.setText(user.getUsername());
+        emailjTextField3.setText(user.getEmail());
+        fbIdjTextField.setText(user.getId());
+        aboutjTextField.setText(user.getRelationshipStatus());
+        birthdayjTextField.setText(user.getBirthday());
+        System.out.println("Name: " + user.getName());
+        System.out.println("Username: " + user.getUsername());
+        System.out.println("Email: " + user.getEmail());
+        System.out.println("ID Facebook: " + user.getId());
+        System.out.println("Relationship: " + user.getRelationshipStatus());
+        System.out.println("Birthday: " + user.getBirthday());
+        //       System.out.println("Page likes: " + page.getLikes());
+    }//GEN-LAST:event_getUserPropertesjButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -274,6 +266,7 @@ public class FacebookInfosJInternalFrame extends javax.swing.JInternalFrame {
     private javax.swing.JTextArea consolejTextArea;
     private javax.swing.JTextField emailjTextField3;
     private javax.swing.JTextField fbIdjTextField;
+    private javax.swing.JButton getUserPropertesjButton;
     private javax.swing.JButton getpagesLikedjButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

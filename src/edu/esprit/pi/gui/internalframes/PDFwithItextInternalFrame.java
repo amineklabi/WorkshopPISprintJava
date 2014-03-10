@@ -590,7 +590,7 @@ public class PDFwithItextInternalFrame extends javax.swing.JInternalFrame {
             addContent(document);
             System.out.println("Fermeture du document.");
             document.close();
-            JOptionPane.showMessageDialog(this, "Génération du PDF effectué avec succès. ");
+            JOptionPane.showMessageDialog(this, "Génération du PDF effectué avec succès : "+FILE);
         } catch (Exception e) {
             e.printStackTrace();
         }

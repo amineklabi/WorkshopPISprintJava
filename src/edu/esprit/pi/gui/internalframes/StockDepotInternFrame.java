@@ -392,7 +392,9 @@ public class StockDepotInternFrame extends javax.swing.JInternalFrame {
 
     private void refreshjButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshjButton2ActionPerformed
         adresseDepotjComboBox1.removeAllItems();
+        libelleVetjComboBox1.removeAllItems();
         remplirAdresseDepotComboBox();
+        remplirStockComboBox();
     }//GEN-LAST:event_refreshjButton2ActionPerformed
 
     private void miseaJourjButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miseaJourjButton3ActionPerformed
